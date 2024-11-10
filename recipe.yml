@@ -38,19 +38,18 @@ stages:
   - name: netbird
     type: shell
     commands:
-    - apt update
     - apt install ca-certificates curl gnupg -y
     - curl -sSL https://pkgs.netbird.io/debian/public.key | gpg --dearmor --output /usr/share/keyrings/netbird-archive-keyring.gpg
     - echo 'deb [signed-by=/usr/share/keyrings/netbird-archive-keyring.gpg] https://pkgs.netbird.io/debian stable main' | tee /etc/apt/sources.list.d/netbird.list
 
-  - name: other-goodies
-    type: shell
-    commands:
-    - apt update
-    - apt install gnome-tweaks
-    - apt install software-properties-common
-    - apt install ufw
-    - apt install papirus-icon-theme
+  - name: goodies-and-tweaks
+    type: apt
+    source:
+      packages:
+    - gnome-tweaks
+    - software-properties-common
+    - ufw
+    - papirus-icon-theme
   # Put your custom actions before this comment
 
   - name: set-image-name-abroot
